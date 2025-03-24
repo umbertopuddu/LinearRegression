@@ -1,9 +1,5 @@
 # Linear Regression Model in C
 
-> ⚠️ **Disclaimer**  
-> Although this is a video coding–free project, **AI has been used to generate the beautiful documentation below**, which helps both the publisher and the user without preventing the publisher from learning the presented content!  
-> Users are encouraged to do the same when using or extending this implementation — let documentation enhance, not replace, your learning process.
-
 ---
 
 ## 📚 Table of Contents
@@ -48,7 +44,7 @@
 
 ## 📚 API Reference
 
-### LR_Model (from `LR_Model.h`)
+### Linear Regression (from `LR_Model.h`)
 
 | Function | Description |
 |----------|-------------|
@@ -60,7 +56,7 @@
 
 ---
 
-### Vector API (from `vector.h`)
+### Vectors (from `vector.h`)
 
 | Function | Description |
 |----------|-------------|
@@ -71,7 +67,7 @@
 
 ---
 
-### Matrix API (from `matrix.h`)
+### Matrices (from `matrix.h`)
 
 | Function | Description |
 |----------|-------------|
