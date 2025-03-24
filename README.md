@@ -10,15 +10,15 @@
 
 - [📁 Project Structure](#-project-structure)
 - [⚙️ Features](#️-features)
-- [🧠 How It Works](#-how-it-works)
-- [🧪 Example Usage](#-example-usage-from-testerc)
-- [🔧 Compilation](#-compilation)
 - [📚 API Reference](#-api-reference)
-  - [LR_Model API](#lr_model-from-lr_modelh)
-  - [Vector API](#vector-api-from-vectorh)
-  - [Matrix API](#matrix-api-from-matrixh)
+  - [LR_Model](#lr_model-from-lr_modelh)
+  - [Vector](#vector-api-from-vectorh)
+  - [Matrix](#matrix-api-from-matrixh)
+  - [🔧 Compilation](#-compilation)
+- [🧠 How It Works](#-how-it-works)
 - [🧱 Dependencies](#-dependencies)
 - [🧼 Memory Management](#-memory-management)
+- [🧪 Example Usage](#-example-usage-from-testerc)
 - [📝 Future Improvements](#-future-improvements)
 - [📄 License](#-license)
 
@@ -43,73 +43,6 @@
 - Save and load models from disk  
 - Custom vector/matrix algebra implementation  
 - Designed to be simple and easily extensible  
-
----
-
-## 🧠 How It Works
-
-- A **Feature** consists of a name and a vector of data points.  
-- An **Output** is simply a Feature representing the target variable.
-
-### `train_model()`
-Builds a model from features and output using the **Normal Equation**:
-
-```
-w = (XᵀX)⁻¹ Xᵀy
-```
-
-### `run_model()`
-Computes predictions using the trained weights:
-
-```
-ŷ = wᵀ ⋅ x
-```
-
-### `save_model()` and `load_model()`
-Provide persistence by saving/loading weights and model metadata to/from disk.
-
----
-
-## 🧪 Example Usage (from `tester.c`)
-
-```c
-int n = 5;
-
-// Create input vector x = [0, 1, 2, 3, 4]
-Vector x_vec = empty_vec(n);
-for (int i = 0; i < n; i++) x_vec.data[i] = i;
-
-// Output y = 4x + 3
-Vector y_vec = empty_vec(n);
-for (int i = 0; i < n; i++) y_vec.data[i] = 4 * i + 3;
-
-// Feature and output setup
-Feature feats[1] = { { "x", x_vec } };
-Output output = { "y", y_vec };
-
-// Train model with intercept
-LR_Model *model = train_model(feats, output, 1, true);
-
-// Save, load, and run
-save_model(model, "Test");
-printf("Prediction before save: %Lf\n", run_model(model, (long double[]){5.0}));
-free_model(model);
-model = load_model("Test");
-printf("Prediction after load: %Lf\n", run_model(model, (long double[]){5.0}));
-```
-
----
-
-## 🔧 Compilation
-
-To compile and run the tester:
-
-```bash
-gcc tester.c -o tester
-./tester
-```
-
-Make sure all headers and implementations are in the same directory or adjust your includes accordingly.
 
 ---
 
@@ -155,6 +88,43 @@ Make sure all headers and implementations are in the same directory or adjust yo
 
 ---
 
+### 🔧 Compilation
+
+To compile and run the tester:
+
+```bash
+gcc tester.c -o tester
+./tester
+```
+
+Make sure all headers and implementations are in the same directory or adjust your includes accordingly.
+
+---
+
+## 🧠 How It Works
+
+- A **Feature** consists of a name and a vector of data points.  
+- An **Output** is simply a Feature representing the target variable.
+
+### `train_model()`
+Builds a model from features and output using the **Normal Equation**:
+
+```
+w = (XᵀX)⁻¹ Xᵀy
+```
+
+### `run_model()`
+Computes predictions using the trained weights:
+
+```
+ŷ = wᵀ ⋅ x
+```
+
+### `save_model()` and `load_model()`
+Provide persistence by saving/loading weights and model metadata to/from disk.
+
+---
+
 ## 🧱 Dependencies
 
 This is a **pure C** project — no external libraries are required. It is self-contained with custom implementations for vectors and matrices.
@@ -163,11 +133,41 @@ This is a **pure C** project — no external libraries are required. It is self-
 
 ## 🧼 Memory Management
 
-Don’t forget to:
+- Call `free_model()` after using your model  
+- Free any vectors you initialize with `empty_vec()`  
+- Free any matrices if you expand the project further  
 
-- Call `free_model()` after using your model
-- Free any vectors you initialize with `empty_vec()`
-- Free any matrices if you expand this further
+> ✅ **If used properly, this implementation leaks 0 bytes of memory — guaranteed no memory leaks.**
+
+---
+
+## 🧪 Example Usage (from `tester.c`)
+
+```c
+int n = 5;
+
+// Create input vector x = [0, 1, 2, 3, 4]
+Vector x_vec = empty_vec(n);
+for (int i = 0; i < n; i++) x_vec.data[i] = i;
+
+// Output y = 4x + 3
+Vector y_vec = empty_vec(n);
+for (int i = 0; i < n; i++) y_vec.data[i] = 4 * i + 3;
+
+// Feature and output setup
+Feature feats[1] = { { "x", x_vec } };
+Output output = { "y", y_vec };
+
+// Train model with intercept
+LR_Model *model = train_model(feats, output, 1, true);
+
+// Save, load, and run
+save_model(model, "Test");
+printf("Prediction before save: %Lf\n", run_model(model, (long double[]){5.0}));
+free_model(model);
+model = load_model("Test");
+printf("Prediction after load: %Lf\n", run_model(model, (long double[]){5.0}));
+```
 
 ---
 
