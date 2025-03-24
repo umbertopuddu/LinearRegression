@@ -1,6 +1,8 @@
 # Linear Regression Model in C
 
-This project provides a lightweight, modular implementation of a Linear Regression (LR) model in C. It supports model training, inference, and persistence (saving/loading to/from files), and is built on custom Vector and Matrix abstractions.
+> ⚠️ **Disclaimer**  
+> Although this is a video coding–free project, **AI has been used to generate the beautiful documentation below**, which helps both the publisher and the user without preventing the publisher from learning the presented content!  
+> Users are encouraged to do the same when using or extending this implementation — let documentation enhance, not replace, your learning process.
 
 ---
 
