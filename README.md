@@ -1,7 +1,7 @@
 # Linear Regression Model in C
 
 > ⚠️ **Disclaimer**  
-> Although this is a video coding–free project, **AI has been used to generate the beautiful documentation below**, which helps both the publisher and the user without preventing the publisher from learning the presented content!  
+> Although this is a vibe coding free project, **AI has been used to generate the beautiful documentation below**, which helps both the publisher and the user without preventing the publisher from learning the presented content!  
 > Users are encouraged to do the same when using or extending this implementation — let documentation enhance, not replace, your learning process.
 
 ---
