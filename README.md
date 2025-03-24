@@ -1,5 +1,7 @@
 # Linear Regression Model in C
 
+> A lightweight, self-contained linear regression implementation in pure C, featuring training, prediction, file persistence, and custom matrix/vector utilities — all built without relying on external libraries.
+
 ---
 
 ## 📚 Table of Contents
