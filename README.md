@@ -1,8 +1,26 @@
 # Linear Regression Model in C
 
 > ⚠️ **Disclaimer**  
-> Although this is a vibe coding free project, **AI has been used to generate the beautiful documentation below**, which helps both the publisher and the user without preventing the publisher from learning the presented content!  
+> Although this is a video coding–free project, **AI has been used to generate the beautiful documentation below**, which helps both the publisher and the user without preventing the publisher from learning the presented content!  
 > Users are encouraged to do the same when using or extending this implementation — let documentation enhance, not replace, your learning process.
+
+---
+
+## 📚 Table of Contents
+
+- [📁 Project Structure](#-project-structure)
+- [⚙️ Features](#️-features)
+- [🧠 How It Works](#-how-it-works)
+- [🧪 Example Usage](#-example-usage-from-testerc)
+- [🔧 Compilation](#-compilation)
+- [📚 API Reference](#-api-reference)
+  - [LR_Model API](#lr_model-from-lr_modelh)
+  - [Vector API](#vector-api-from-vectorh)
+  - [Matrix API](#matrix-api-from-matrixh)
+- [🧱 Dependencies](#-dependencies)
+- [🧼 Memory Management](#-memory-management)
+- [📝 Future Improvements](#-future-improvements)
+- [📄 License](#-license)
 
 ---
 
