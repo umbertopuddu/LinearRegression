@@ -22,17 +22,13 @@
 
 ---
 
-## 📁 Project Structure
+## 📁 Implemented Headers
 
 ```
 .
 ├── LR_Model.h       # Core linear regression model interface
-├── LR_Model.c       # Implementation of model training and evaluation
 ├── matrix.h         # Matrix operations, including transpose and inversion
-├── matrix.c         # Implementation of matrix utilities
 ├── vector.h         # Vector operations used throughout the model
-├── vector.c         # Implementation of vector utilities
-├── tester.c         # ✅ [Example test/demo file](./tester.c)
 ```
 
 ---
