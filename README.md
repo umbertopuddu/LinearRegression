@@ -210,8 +210,8 @@ free_vec(&y);
 
 I benchmarked this C implementation against Python’s `scikit-learn` using the small dataset provided in the repo.
 
-- The **C version** completed inference in just a few **milliseconds**  
-- The **Python version** took over **600ms**
+- The **C version** completed inference in just a few **milliseconds** [`tester.c`](./tester.c)
+- The **Python version** took over **600ms** [`tester.py`](./tester.py)
 
 💥 That’s a **~100x speedup**, thanks to the low-level, no-overhead nature of C. Test it yourself !
 
