@@ -74,7 +74,7 @@ void free_model(LR_Model *model) {
 }
 
 
-LR_Model * train_model(Feature *feats, Output output, long feat_count, bool has_intercept)
+LR_Model * train_model(Feature *feats, Output * output, long feat_count, bool has_intercept)
 {
     long datapoints = feats[0].data.size;
     
@@ -101,7 +101,7 @@ LR_Model * train_model(Feature *feats, Output output, long feat_count, bool has_
         }
     }
     
-    Vector y_source = output.data;
+    Vector y_source = output -> data;
     
     // Compute weights using the normal equation: w = (X^T X)^(-1) X^T y
     Matrix X_T = t_matrix(&X);

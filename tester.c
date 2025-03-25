@@ -27,10 +27,10 @@ int main()
     output.data = y_vec;
     
     // Train the model with an intercept.
-    LR_Model *model = train_model(feats, output, 1, true);
+    LR_Model *model = train_model(feats, &output, 1, true);
     
     // Save the model to file "Test".
-    save_model(model, "Test");
+    save_model(model, "saved_model");
 
     // Define input as an array (for a model with an intercept, run_model will use input[0]).
     long double input[1] = {5.0};

@@ -22,13 +22,17 @@
 
 ---
 
-## 📁 Implemented Headers
+## 📁 Project Structure
 
 ```
 .
 ├── LR_Model.h       # Core linear regression model interface
-├── vector.h         # Vector operations used throughout the model
+├── LR_Model.c       # Implementation of model training and evaluation
 ├── matrix.h         # Matrix operations, including transpose and inversion
+├── matrix.c         # Implementation of matrix utilities
+├── vector.h         # Vector operations used throughout the model
+├── vector.c         # Implementation of vector utilities
+├── tester.c         # ✅ [Example test/demo file](./tester.c)
 ```
 
 ---
@@ -45,11 +49,11 @@
 
 ## 📚 API Reference
 
-### Linear Regression (from `LR_Model.h`)
+### LR_Model (from `LR_Model.h`)
 
 | Function | Description |
 |----------|-------------|
-| `LR_Model *train_model(Feature *feats, Output output, long feat_count, bool has_intercept)` | Train a linear regression model using features and output |
+| `LR_Model *train_model(Feature *feats, Output *output, long feat_count, bool has_intercept)` | Train a linear regression model using features and output |
 | `long double run_model(LR_Model *model, data_row input)` | Run the model on a new input to get a prediction |
 | `void save_model(LR_Model *model, char *path)` | Serialize the model weights and metadata to a file |
 | `LR_Model *load_model(char *path)` | Load a serialized model from a file |
@@ -87,10 +91,10 @@
 
 ### 🔧 Compilation
 
-To compile and run the tester:
+To compile and run the tester, ensure all `.c` files are included:
 
 ```bash
-gcc tester.c -o tester
+gcc tester.c LR_Model.c matrix.c vector.c -o tester
 ./tester
 ```
 
@@ -138,7 +142,7 @@ This is a **pure C** project — no external libraries are required. It is self-
 
 ---
 
-## 🧪 Example Usage (from `tester.c`)
+## 🧪 Example Usage (from [`tester.c`](./tester.c))
 
 ```c
 int n = 5;
@@ -156,14 +160,14 @@ Feature feats[1] = { { "x", x_vec } };
 Output output = { "y", y_vec };
 
 // Train model with intercept
-LR_Model *model = train_model(feats, output, 1, true);
+LR_Model *model = train_model(feats, &output, 1, true);
 
 // Save, load, and run
 save_model(model, "Test");
-printf("Prediction before save: %Lf\n", run_model(model, (long double[]){5.0}));
+printf("Prediction before save: %Lf\n", run_model(model, (long double[]){5.0L}));
 free_model(model);
 model = load_model("Test");
-printf("Prediction after load: %Lf\n", run_model(model, (long double[]){5.0}));
+printf("Prediction after load: %Lf\n", run_model(model, (long double[]){5.0L}));
 ```
 
 ---

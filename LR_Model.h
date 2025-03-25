@@ -26,7 +26,7 @@ typedef struct {
 
 LR_Model * init_model(Feature * feats, long feat_count, bool has_intercept);
 void free_model(LR_Model *model);
-LR_Model * train_model(Feature *feats, Output output, long feat_count, bool has_intercept);
+LR_Model * train_model(Feature *feats, Output * output, long feat_count, bool has_intercept);
 long double run_model(LR_Model * model, data_row input);
 void save_model(LR_Model * model, char * file_path);
 LR_Model * load_model(char * file_path);
