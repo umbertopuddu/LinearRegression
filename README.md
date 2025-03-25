@@ -147,27 +147,46 @@ This is a **pure C** project — no external libraries are required. It is self-
 ```c
 int n = 5;
 
-// Create input vector x = [0, 1, 2, 3, 4]
+// Create and initialize the x vector.
 Vector x_vec = empty_vec(n);
-for (int i = 0; i < n; i++) x_vec.data[i] = i;
+for (int i = 0; i < n; i++) {
+    x_vec.data[i] = (long double)i;
+}
 
-// Output y = 4x + 3
+// Create and initialize the y vector (y = 4x + 3).
 Vector y_vec = empty_vec(n);
-for (int i = 0; i < n; i++) y_vec.data[i] = 4 * i + 3;
+for (int i = 0; i < n; i++) {
+    y_vec.data[i] = 4 * x_vec.data[i] + 3;
+}
 
-// Feature and output setup
-Feature feats[1] = { { "x", x_vec } };
-Output output = { "y", y_vec };
+// Setup feature using the x vector.
+Feature feats[1];
+feats[0].name = "x";
+feats[0].data = x_vec;
 
-// Train model with intercept
+// Setup output using the y vector.
+Output output;
+output.name = "y";
+output.data = y_vec;
+
+// Train the model with an intercept.
 LR_Model *model = train_model(feats, &output, 1, true);
 
-// Save, load, and run
-save_model(model, "Test");
-printf("Prediction before save: %Lf\n", run_model(model, (long double[]){5.0L}));
+// Save the model to file "Test".
+save_model(model, "saved_model");
+// Define input as an array (for a model with an intercept, run_model will use input[0]).
+long double input[1] = {5.0};
+printf("Before: %Lf \n", run_model(model, input));
+// Free the model after use.
 free_model(model);
+// Reload the model from the file.
 model = load_model("Test");
-printf("Prediction after load: %Lf\n", run_model(model, (long double[]){5.0L}));
+printf("After: %Lf \n", run_model(model, input));
+free_model(model);
+// Free the vectors allocated with empty_vec.
+free_vec(&x_vec);
+free_vec(&y_vec);
+return 0;
 ```
 
 ---
@@ -176,7 +195,7 @@ printf("Prediction after load: %Lf\n", run_model(model, (long double[]){5.0L}));
 
 - Implement regularization (e.g., Ridge regression)  
 - Include gradient descent as an alternative to the Normal Equation  
-- Build a full test suite  
+- Add support for applying transformations to inputs and inverse transformations to outputs to model non-linear relationships.
 
 ---
 
