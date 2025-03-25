@@ -1,55 +1,37 @@
 #include "LR_Model.h"
 
-int main()
-{
+int main() {
     int n = 5;
-    
-    // Create and initialize the x vector.
-    Vector x_vec = empty_vec(n);
+    // Allocate and initialize vectors for features and output.
+    Vector x = empty_vec(n), z = empty_vec(n), y = empty_vec(n);
+    int primes[5] = {2, 3, 5, 7, 11};
     for (int i = 0; i < n; i++) {
-        x_vec.data[i] = (long double)i;
+        x.data[i] = i + 1;                   // x: 1, 2, 3, 4, 5
+        z.data[i] = primes[i];               // z: 2, 3, 5, 7, 11
+        y.data[i] = 1 + 2 * x.data[i] + 0.5 * z.data[i];
     }
-    
-    // Create and initialize the y vector (y = 4x + 3).
-    Vector y_vec = empty_vec(n);
-    for (int i = 0; i < n; i++) {
-        y_vec.data[i] = 4 * x_vec.data[i] + 3;
-    }
-    
-    // Setup feature using the x vector.
-    Feature feats[1];
-    feats[0].name = "x";
-    feats[0].data = x_vec;
-    
-    // Setup output using the y vector.
-    Output output;
-    output.name = "y";
-    output.data = y_vec;
-    
-    // Train the model with an intercept.
-    LR_Model *model = train_model(feats, &output, 1, true);
-    
-    // Save the model to file "Test".
-    save_model(model, "saved_model");
 
-    // Define input as an array (for a model with an intercept, run_model will use input[0]).
-    long double input[1] = {5.0};
+    Feature feats[2] = { {"x", x}, {"z", z} };
+    Output output = { "y", y };
 
-    printf("Before: %Lf \n", run_model(model, input));
+    // Train the model (with intercept) on non-collinear data.
+    LR_Model *model = train_model(feats, &output, 2, true);
 
-    // Free the model after use.
+    // Test input: new values x=6, z=13 (prediction: 1+2*6+0.5*13 = 19.5)
+    long double input[] = { 6.0, 13.0 };
+
+    save_model(model, "Test");
+    printf("Prediction before save: %Lf\n", run_model(model, input));
     free_model(model);
 
-    // Reload the model from the file.
     model = load_model("Test");
-
-    printf("After: %Lf \n", run_model(model, input));
-
+    printf("Prediction after load: %Lf\n", run_model(model, input));
     free_model(model);
 
-    // Free the vectors allocated with empty_vec.
-    free_vec(&x_vec);
-    free_vec(&y_vec);
+    // Free allocated vectors
+    free_vec(&x);
+    free_vec(&z);
+    free_vec(&y);
 
     return 0;
 }
