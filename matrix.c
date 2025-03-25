@@ -93,6 +93,7 @@ Matrix mul_matr(Matrix * m1, Matrix * m2)
     return result;
 }
 
+// Using Gauss–Jordan elimination.
 Matrix inv_matr(Matrix *m)
 {
     if (m->row_num != m->col_num)
@@ -117,7 +118,6 @@ Matrix inv_matr(Matrix *m)
         }
     }
     
-    // Perform Gauss–Jordan elimination.
     for (int i = 0; i < n; i++)
     {
         long double pivot = aug.data[i].data[i];
@@ -126,12 +126,10 @@ Matrix inv_matr(Matrix *m)
             fprintf(stderr, "Matrix inversion error: singular matrix.\n");
             exit(1);
         }
-        // Divide the pivot row by the pivot element.
         for (int j = 0; j < 2 * n; j++)
         {
             aug.data[i].data[j] /= pivot;
         }
-        // Eliminate the current column from all other rows.
         for (int k = 0; k < n; k++)
         {
             if (k != i)
