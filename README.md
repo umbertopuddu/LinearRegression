@@ -11,7 +11,7 @@
 - [📁 Project Structure](#-project-structure)
 - [⚙️ Features](#️-features)
 - [📚 API Reference](#-api-reference)
-  - [LR_Model](#lr_model-from-lr_modelh)
+  - [LinearRegression](#lr_model-from-lr_modelh)
   - [Vector](#vector-api-from-vectorh)
   - [Matrix](#matrix-api-from-matrixh)
   - [🔧 Compilation](#-compilation)
@@ -29,7 +29,7 @@
 
 ```
 .
-├── LR_Model.h       # Core linear regression model interface
+├── LinearRegression.h       # Core linear regression model interface
 ├── matrix.h         # Matrix operations, including transpose and inversion
 ├── vector.h         # Vector operations used throughout the model
 ```
@@ -48,15 +48,15 @@
 
 ## 📚 API Reference
 
-### LR_Model (from `LR_Model.h`)
+### LinearRegression (from `LinearRegression.h`)
 
 | Function | Description |
 |----------|-------------|
-| `LR_Model *train_model(Feature *feats, Output *output, long feat_count, bool has_intercept)` | Train a linear regression model using features and output |
-| `long double run_model(LR_Model *model, data_row input)` | Run the model on a new input to get a prediction |
-| `void save_model(LR_Model *model, char *path)` | Serialize the model weights and metadata to a file |
-| `LR_Model *load_model(char *path)` | Load a serialized model from a file |
-| `void free_model(LR_Model *model)` | Free all memory used by the model |
+| `LinearRegression *train_model(Feature *feats, Output *output, long feat_count, bool has_intercept)` | Train a linear regression model using features and output |
+| `long double run_model(LinearRegression *model, data_row input)` | Run the model on a new input to get a prediction |
+| `void save_model(LinearRegression *model, char *path)` | Serialize the model weights and metadata to a file |
+| `LinearRegression *load_model(char *path)` | Load a serialized model from a file |
+| `void free_model(LinearRegression *model)` | Free all memory used by the model |
 
 ---
 
@@ -93,7 +93,7 @@
 To compile and run the tester, ensure all `.c` files are included:
 
 ```bash
-gcc tester.c LR_Model.c matrix.c vector.c -o tester
+gcc tester.c LinearRegression.c matrix.c vector.c -o tester
 ./tester
 ```
 
@@ -169,7 +169,7 @@ Output output = { "y", y };
 
 // Train the linear regression model with intercept using the features and output.
 // `train_model` fits the model and returns a pointer to it.
-LR_Model *model = train_model(feats, &output, 2, true);
+LinearRegression *model = train_model(feats, &output, 2, true);
 
 // Define new test input: x = 6, z = 13
 // Expected prediction: 1 + 2*6 + 0.5*13 = 19.5

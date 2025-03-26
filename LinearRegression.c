@@ -1,11 +1,11 @@
-#include "LR_Model.h"
+#include "LinearRegression.h"
 #include "float.h"
 
-LR_Model * init_model(Feature *feats, long predictor_count, bool has_intercept)
+LinearRegression * init_model(Feature *feats, long predictor_count, bool has_intercept)
 {
-    LR_Model *model = malloc(sizeof(LR_Model));
+    LinearRegression *model = malloc(sizeof(LinearRegression));
     if (!model) {
-        fprintf(stderr, "Memory allocation error for LR_Model\n");
+        fprintf(stderr, "Memory allocation error for LinearRegression\n");
         exit(1);
     }
     model->has_intercept = has_intercept;
@@ -54,7 +54,7 @@ LR_Model * init_model(Feature *feats, long predictor_count, bool has_intercept)
     return model;
 }
 
-void free_model(LR_Model *model) {
+void free_model(LinearRegression *model) {
     if (model == NULL)
         return;
     
@@ -73,7 +73,7 @@ void free_model(LR_Model *model) {
     free(model);
 }
 
-LR_Model * train_model(Feature *feats, Output * output, long feat_count, bool has_intercept)
+LinearRegression * train_model(Feature *feats, Output * output, long feat_count, bool has_intercept)
 {
     long datapoints = feats[0].data.size;
     
@@ -81,7 +81,7 @@ LR_Model * train_model(Feature *feats, Output * output, long feat_count, bool ha
     long predictor_count = feat_count + (has_intercept ? 1 : 0);
     
     // Initialize model using the correct number of weights.
-    LR_Model *model = init_model(feats, predictor_count, has_intercept);
+    LinearRegression *model = init_model(feats, predictor_count, has_intercept);
     
     /* --- Build design matrix X --- */
     // X has "datapoints" rows and "predictor_count" columns.
@@ -132,7 +132,7 @@ LR_Model * train_model(Feature *feats, Output * output, long feat_count, bool ha
     return model;
 }
 
-long double run_model(LR_Model *model, data_row input)
+long double run_model(LinearRegression *model, data_row input)
 {
     long double result = 0.0L;
     
@@ -151,7 +151,7 @@ long double run_model(LR_Model *model, data_row input)
     return result;
 }
 
-void save_model(LR_Model *model, char *file_path)
+void save_model(LinearRegression *model, char *file_path)
 {
     FILE *fp = fopen(file_path, "wb");
     if (fp == NULL) {
@@ -192,7 +192,7 @@ error:
     exit(1);
 }
 
-LR_Model * load_model(char *file_path)
+LinearRegression * load_model(char *file_path)
 {
     FILE *fp = fopen(file_path, "rb");
     if (fp == NULL) {
@@ -200,9 +200,9 @@ LR_Model * load_model(char *file_path)
         return NULL;
     }
 
-    LR_Model *model = malloc(sizeof(LR_Model));
+    LinearRegression *model = malloc(sizeof(LinearRegression));
     if (!model) {
-        fprintf(stderr, "Memory allocation error for LR_Model\n");
+        fprintf(stderr, "Memory allocation error for LinearRegression\n");
         goto error;
     }
 

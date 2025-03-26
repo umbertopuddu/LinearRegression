@@ -1,4 +1,4 @@
-#include "LR_Model.h"
+#include "LinearRegression.h"
 
 int main() {
 
@@ -27,7 +27,7 @@ int main() {
     
     // Train the linear regression model with intercept using the features and output.
     // `train_model` fits the model and returns a pointer to it.
-    LR_Model *model = train_model(feats, &output, 2, true);
+    LinearRegression *model = train_model(feats, &output, 2, true);
     
     // Define new test input: x = 6, z = 13
     // Expected prediction: 1 + 2*6 + 0.5*13 = 19.5
