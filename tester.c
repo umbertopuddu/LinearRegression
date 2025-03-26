@@ -44,7 +44,7 @@ int main() {
     // Free the memory allocated for the model
     // `free_model` releases all resources associated with the model
     free_model(model);
-    
+
     // Reload the model from the saved file "Test"
     // `load_model` reads the model parameters from disk and returns a pointer
     model = load_model("Test");
@@ -54,12 +54,12 @@ int main() {
     
     // Free the model again after use
     free_model(model);
-    
+
     // Free the memory allocated for all vectors
     // `free_vec` releases internal data held by the vector
     free_vec(&x);
     free_vec(&z);
-    free_vec(&y);    
+    free_vec(&y);
 
     return 0;
 }
